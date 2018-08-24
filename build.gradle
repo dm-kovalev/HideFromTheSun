@@ -18,7 +18,7 @@ allprojects {
     // For idea /out and /build directories synchronization
     idea {
         module {
-            outputDir file('build/classes/main')
+            outputDir file('build/classes/java/main')
             testOutputDir file('build/classes/test')
         }
     }
@@ -27,8 +27,6 @@ allprojects {
         mavenCentral()
     }
 }
-
-
 
 dependencies {
     compile group: 'com.google.maps', name: 'google-maps-services', version: '0.2.10'
