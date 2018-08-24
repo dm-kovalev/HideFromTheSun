@@ -27,11 +27,14 @@ public class Main {
 
     // https://www.movable-type.co.uk/scripts/latlong.html
     private static double computeBearing(LatLng src, LatLng dst) {
-        double dLng = (dst.lng - src.lng);
+        double lt1 = Math.toRadians(src.lat);
+        double lt2 = Math.toRadians(dst.lat);
 
-        double y = Math.sin(dLng) * Math.cos(dst.lat);
-        double x = Math.cos(src.lat) * Math.sin(dst.lat) - Math.sin(src.lat)
-                * Math.cos(dst.lat) * Math.cos(dLng);
+        double dLng = Math.toRadians(dst.lng - src.lng);
+
+        double y = Math.sin(dLng) * Math.cos(lt2);
+        double x = Math.cos(lt1) * Math.sin(lt2) - Math.sin(lt1)
+                * Math.cos(lt2) * Math.cos(dLng);
 
         double bearing = Math.toDegrees(Math.atan2(y, x));
         return (bearing + 360) % 360;
@@ -61,11 +64,11 @@ public class Main {
         }
 
         int sunOnTheRight = 0;
+        final GregorianCalendar calendar = new GregorianCalendar();
 
         // just for example
         List<LatLng> route = routes.get(0);
         for (int i = 0; i < route.size() - 2; i++) {
-            GregorianCalendar calendar = new GregorianCalendar(2018, 8, 23, 16, 0);
             LatLng currentPosition = route.get(i);
 
             double bearing = computeBearing(currentPosition, route.get(i + 1));
